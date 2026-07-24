@@ -4,9 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src = "./async_1.js"></script>
+    <!-- <script src = "./async_1.js"></script> -->
+     <script>
+        async function loadUserDetails(username){
+            try{
+                const url = `https://api.github.com/users/${username}`;
+                const res  = await fetch(url);
+                const data = await  res.json();
+                document.getElementById("para1").innerText = data.name;
+                document.getElementById("para1").style.color = "red";
+                console.log("response:",res);
+                
+            } 
+            catch(err){
+                console.log("error caught ",err);
+                
+            }
+        }
+        loadUserDetails("akshatyadav-bit");
+     </script>
 </head>
 <body>
+    <h1> git hub info</h1>
+    <p id = "para1"></p>
     
 </body>
 </html>
