@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub Profile Page</title>
+
+    <script>
+        async function loadUser() {
+            try {
+                const username = document.getElementById("username").value;
+
+                const url = `https://api.github.com/users/${username}`;
+                // const commiturl = `
+
+                const res = await fetch(url);
+                const data = await res.json();
+
+                console.log("response:", res);
+                console.log("data:", data);
+
+                document.getElementById("login").innerText = data.login;
+                document.getElementById("name").innerText = data.name;
+                document.getElementById("id").innerText = data.id;
+                document.getElementById("followers").innerText = data.followers;
+                document.getElementById("following").innerText = data.following;
+                document.getElementById("public_repos").innerText = data.public_repos;
+                document.getElementById("public_gists").innerText = data.public_gists;
+                document.getElementById("created_at").innerText = data.created_at;
+                document.getElementById("profile").href = data.html_url;
+                document.getElementById("avatar").src = data.avatar_url;
+
+            } 
+            catch (err) {
+                console.log("error caught:", err);
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <input type="text" id="username" placeholder="Enter GitHub username">
+
+    <button onclick="loadUser()">Load User</button>
+
+    <br><br>
+
+    <img id="avatar" width="100">
+
+    <h2 id="name"></h2>
+
+    <p>Username: <span id="login"></span></p>
+    <p>ID: <span id="id"></span></p>
+    <p>Followers: <span id="followers"></span></p>
+    <p>Following: <span id="following"></span></p>
+    <p>Public Repositories: <span id="public_repos"></span></p>
+    <p>Public Gists: <span id="public_gists"></span></p>
+    <p>Account Created: <span id="created_at"></span></p>
+
+    <a id="profile" target="_blank">GitHub Profile</a>
+
+</body>
+</html>

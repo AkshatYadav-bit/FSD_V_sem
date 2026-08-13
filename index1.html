@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demo Fetch</title>
+
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+    </style>
+
+    <script>
+        async function loadProducts() {
+            try {
+                console.log("Function called");
+
+                const url = "https://dummyjson.com/products";
+
+                const res = await fetch(url);
+
+                const data = await res.json();
+                const table = document.getElementById("table_prod");
+
+                for (const prod of data.products) {
+                    const row = `
+                        <tr>
+                            <td>${prod.id}</td>
+                            <td>${prod.title}</td>
+                            <td><img src = ${prod.images[0]} width = 50 height = 50 /></td>
+                            <td>${prod.category}</td>
+                            <td>${prod.rating}</td>
+                            <td>${prod.price}</td>
+                            <td>${prod.stock}</td>
+                        </tr>
+                    `;
+
+                    table.innerHTML += row;
+                }
+
+            } catch (err) {
+                console.log("ERROR:", err);
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <button onclick="loadProducts()">Load Products</button>
+
+    <br><br>
+
+    <table>
+        <caption>List of Products</caption>
+
+        <thead>
+            <tr>
+                <th>Sr No.</th>
+                <th>Title</th>
+                <th>image</th>
+                <th>Category</th>
+                <th>Rating</th>
+                <th>Price</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+
+        <tbody id="table_prod">
+        </tbody>
+    </table>
+
+</body>
+</html>
